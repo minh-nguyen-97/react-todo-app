@@ -1,21 +1,13 @@
 import React from 'react';
-import { Box, Typography, Grid, Paper} from '@material-ui/core';
+import { Typography, Grid, Paper, Fab} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core';
-import { blue, red, lime } from '@material-ui/core/colors';
-import { maxWidth } from '@material-ui/system';
-import { white } from 'ansi-colors';
+import { blue } from '@material-ui/core/colors';
 
 const useStyle = makeStyles( theme => ({
   root: {
     flexGrow: 1,
     overflow: 'hidden',
-  },
-  iconHover: {
-    '&:hover': {
-      color: red[800],
-      cursor: 'pointer'
-    },
   },
   icons: {
     textAlign: "center"    
@@ -51,14 +43,14 @@ export default function TodoItems(props) {
                   </Paper>
                 </Grid>
                 <Grid item xs={2} className={classes.icons}>
-                  <DeleteIcon
-                    className={classes.iconHover}
-                    onClick={(e) => {
-                      props.removeItem(item)
-                    }}
-                  >
-                    Remove
-                  </DeleteIcon>
+                  <Fab color="secondary">
+                    <DeleteIcon
+                      className={classes.iconHover}
+                      onClick={(e) => {
+                        props.removeItem(item)
+                      }}
+                    />
+                  </Fab>
                 </Grid>
               </Grid>
             )

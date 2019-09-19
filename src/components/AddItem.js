@@ -1,6 +1,21 @@
 import React from 'react'
+import { TextField, withStyles, Grid, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
-export default class AddItem extends React.Component {
+const styles = theme => ({
+  root: {
+  },
+  textField: {
+    width: '100%'
+  },
+  icon: {
+    textAlign: "center"    
+  },
+});
+
+class AddItem extends React.Component {
 
   state = {
     error: undefined
@@ -8,8 +23,6 @@ export default class AddItem extends React.Component {
 
   hanldeAddItem = (e) => {
     e.preventDefault();
-
-    console.log(e.target.elements.newItem.value)
 
     const newItem = e.target.elements.newItem.value.trim();
     const error = this.props.addItem(newItem);
@@ -22,14 +35,48 @@ export default class AddItem extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.root}>
         <form onSubmit={this.hanldeAddItem}>
-          <input type="text" name="newItem" />
-          <button>Add Task</button>
+          <Grid 
+            container
+            wrap="nowrap" 
+            spacing={2} 
+            alignItems="center"
+            justify="center"
+          >
+            <Grid item xs={9}>
+              <TextField
+                label="Add a Task"
+                className={classes.textField}
+                name="newItem"
+                margin="normal"
+                variant="outlined"
+              />
+              {
+                !!this.state.error 
+                && 
+                <Typography color="secondary">
+                  {this.state.error}
+                </Typography>
+              }
+            </Grid>
+            <Grid item xs={2} className={classes.icon}>
+              <Fab color="primary" type="submit">
+                <AddIcon />
+              </Fab>
+            </Grid>
+          </Grid>
+          
         </form>
-        {!!this.state.error && this.state.error}
       </div>
     )
   }
 }
+
+AddItem.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(AddItem);
