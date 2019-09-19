@@ -2,6 +2,7 @@ import React from 'react';
 import TodoItems from './TodoItems';
 import AddItem from './AddItem';
 import { Container } from '@material-ui/core';
+import Header from './Header';
 
 class App extends React.Component {
 
@@ -28,6 +29,7 @@ class App extends React.Component {
   render() {
     return (
       <Container maxWidth="md">
+        <Header />
         {<TodoItems items={this.state.items} removeItem={this.removeItem} />}
         <AddItem addItem={this.addItem} />
       </Container>
